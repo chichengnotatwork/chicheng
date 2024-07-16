@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>非池中物</title>
-    <link>https://chicheng.run/</link>
-    <description>Recent content on 非池中物</description>
+    <title>多伦多 on 非池中物</title>
+    <link>https://chicheng.run/tags/%E5%A4%9A%E4%BC%A6%E5%A4%9A/</link>
+    <description>Recent content in 多伦多 on 非池中物</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Fri, 05 Jul 2024 14:56:55 -0500</lastBuildDate>
-    <atom:link href="https://chicheng.run/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>日语学习手记（2023.3-2024.7.5）</title>
-      <link>https://chicheng.run/posts/japanese-learning-diary/</link>
-      <pubDate>Fri, 05 Jul 2024 14:56:55 -0500</pubDate>
-      <guid>https://chicheng.run/posts/japanese-learning-diary/</guid>
-      <description>2019年12月，我毫无征兆地失去了我使用了3年的微博账号。已经是第二次了，已经非常谨慎——但还是说失去就失去了。那个微博账号的时间虽然不长</description>
-    </item>
+    <lastBuildDate>Fri, 10 May 2024 14:56:55 -0500</lastBuildDate>
+    <atom:link href="https://chicheng.run/tags/%E5%A4%9A%E4%BC%A6%E5%A4%9A/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>走出去的人，应当发出自己的声音</title>
       <link>https://chicheng.run/posts/fujian-women-immigration-review/</link>
@@ -35,20 +28,6 @@
       <pubDate>Fri, 22 Sep 2023 14:56:55 -0500</pubDate>
       <guid>https://chicheng.run/posts/part-time-field-work-01/</guid>
       <description>我能找到这份工作简直是个奇迹；而奇迹发生得十分婉转幽折。 明天开始，我就要去陈记上班了。 自从决定要做这个题目，我就在多伦多的chinatown</description>
-    </item>
-    <item>
-      <title>About Me</title>
-      <link>https://chicheng.run/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://chicheng.run/about/</guid>
-      <description>about</description>
-    </item>
-    <item>
-      <title>Friends</title>
-      <link>https://chicheng.run/friends/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://chicheng.run/friends/</guid>
-      <description>about</description>
     </item>
   </channel>
 </rss>
