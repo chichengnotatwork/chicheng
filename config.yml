@@ -12,9 +12,10 @@ buildDrafts: false
 buildFuture: false
 buildExpired: false
 
-#googleAnalytics: UA-123-45 
+googleAnalytics: G-G1HJV7D3FG
 
-paginate: 15    # 每页显示的文章数
+pagination:
+  pagerSize: 15    # 每页显示的文章数
 
 minify:
   disableXML: true
@@ -54,7 +55,11 @@ params:
   comments: true
   twikoo:
     version: 1.6.32
-  # description: "some description for your blog"
+  
+  busuanzi:
+    enabled: true
+
+  description: "CHI Cheng's Blog, 池骋, 非池中物"
   # author: "Chi Cheng"
   # author: ["Me", "You"] # multiple authors
   # images: ["<link or path of image for opengraph, twitter-cards>"]
@@ -88,20 +93,22 @@ params:
   homeInfoParams:
     Title: "CHI Cheng"
     Content: >
-      “祈求風和雨 / 吹我到理想的遠處 / 故土沒法跟隨我意願”   
-
+      「再见了妈妈今晚我就要远航」 
+  
   socialIcons:
     - name: instagram
-      url: "https://www.instagram.com/chengchiiiii?igsh=MWtnYW44eWw4aXZrNg%3D%3D&utm_source=qr"
+      url: "https://www.instagram.com/chichengwrites/"
     - name: weibo
       url: "https://weibo.com/u/5244927870"
     - name: douban
       url: "https://www.douban.com/people/119863166/?_i=4911660EufpDeI"      
     - name: email
-      url: "mailto:chicheng0222@gmail.com"
+      url: "mailto:chichengwrites@gmail.com"
     - name: rss
       url: "index.xml"  
-
+    - name: kofi
+      url: "https://ko-fi.com/chicheng"
+ 
   # editPost:
   #   URL: "https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content"
   #   Text: "Suggest Changes" # edit text
@@ -114,11 +121,13 @@ params:
   assets:
     # disableHLJS: true # to disable highlight.js
     # disableFingerprinting: true
-    favicon: "img/logo.png"
-    favicon16x16: "img/logo.png"
-    favicon32x32: "img/logo.png"
-    apple_touch_icon: "img/logo.png"
-    safari_pinned_tab: "img/logo.png"
+    favicon: "img/favicon.ico"
+    favicon16x16: "img/favicon-16x16.png"
+    favicon32x32: "img/favicon-32x32.png"
+    apple_touch_icon: "img/apple-touch-icon.png"
+    safari_pinned_tab: "img/safari-pinned-tab.svg"
+    theme_color: "#ffffff"
+    msapplication_TileColor: "00aba9"
 
   label:
     text: "非池中物"

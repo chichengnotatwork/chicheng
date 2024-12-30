@@ -1,5 +1,8 @@
 {{- if not (.Param "hideFooter") }}
 <footer class="footer">
+    <p class="extended-footer">
+        This blog has been existing for <span id="runningdays" class="running-days"></span>, with a total of <span id="busuanzi_container_site_pv" style='display:none'><span id="busuanzi_value_site_pv"></span> views</span> and <span id="busuanzi_container_site_uv" style='display:none'><span id="busuanzi_value_site_uv"></span> visitors</span>.
+      </p >
     {{- if site.Copyright }}
     <span>{{ site.Copyright | markdownify }}</span>
     {{- else }}
@@ -52,6 +55,22 @@
     });
 
 </script>
+
+<!-- Add blog running time -->
+<script>
+    let s1 = '2024-06-28'; //website start date
+    s1 = new Date(s1.replace(/-/g, "/"));
+    let s2 = new Date();
+    let timeDifference = s2.getTime() - s1.getTime();
+
+    let days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+
+    let result = days + " days, " + hours + " hours, " + minutes + " mins";
+    document.getElementById('runningdays').innerHTML = result;
+  </script>  
+  
 
 {{- if (not site.Params.disableScrollToTop) }}
 <script>

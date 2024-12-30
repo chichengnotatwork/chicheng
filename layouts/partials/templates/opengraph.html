@@ -62,6 +62,3 @@
     {{- warnf "The social key in site configuration is deprecated. Use params.social.facebook_admin instead." }}
   {{- end }}
 {{- end }}
-
-{{- /* Facebook Page Admin ID for Domain Insights */}}
-{{ with $facebookAdmin }}<meta property="fb:admins" content="{{ . }}" />{{ end }}

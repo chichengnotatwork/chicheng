@@ -6,22 +6,24 @@ Read https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#bundling-custom-cs
 
 #friends ul {
     display: flex;
-    gap:10px;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 #friends ul li{
+    display:inline-block;
     list-style: none;
-    background-color: #fff;
-    border: 2px solid #d6d6d6;
-    border-radius: 8px;
+    background-color: var(--tertiary);
+    border-radius: 6px;
     padding: 5px 10px;
-    color:dimgray;
+    color: var(--content);
+    font-weight: 500;
 }
 
-#friends ul li a{
-    color:dimgray;
- }
-#friends ul li:hover{
-    transition: all .3s ease;
-    box-shadow: 1px 1px #CCCCCC;
+#logo {
+    max-width: 100%;
+    height: auto;
+}
 
+.first-entry{
+    margin-right: 8px;
 }
