@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>记者手记 on 非池中物</title>
-    <link>http://localhost:1313/tags/%E8%AE%B0%E8%80%85%E6%89%8B%E8%AE%B0/</link>
+    <link>https://chicheng.run/tags/%E8%AE%B0%E8%80%85%E6%89%8B%E8%AE%B0/</link>
     <description>Recent content in 记者手记 on 非池中物</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <lastBuildDate>Mon, 22 Jul 2024 14:56:55 -0500</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/%E8%AE%B0%E8%80%85%E6%89%8B%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://chicheng.run/tags/%E8%AE%B0%E8%80%85%E6%89%8B%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>记者手记：Behind the Scene</title>
-      <link>http://localhost:1313/posts/relationships-behind-the-scene/</link>
+      <link>https://chicheng.run/posts/relationships-behind-the-scene/</link>
       <pubDate>Mon, 22 Jul 2024 14:56:55 -0500</pubDate>
-      <guid>http://localhost:1313/posts/relationships-behind-the-scene/</guid>
+      <guid>https://chicheng.run/posts/relationships-behind-the-scene/</guid>
       <description>梅姐的老公说，采访他就够了。在他们家呆了4个小时后，我意识到这不是一句客套。 我所了解到的中餐馆的故事，远比我目前已经写出来的要复杂。它包含着</description>
     </item>
     <item>
       <title>记者手记：走出去的人，应当发出自己的声音</title>
-      <link>http://localhost:1313/posts/fujian-women-immigration-review/</link>
+      <link>https://chicheng.run/posts/fujian-women-immigration-review/</link>
       <pubDate>Fri, 10 May 2024 14:56:55 -0500</pubDate>
-      <guid>http://localhost:1313/posts/fujian-women-immigration-review/</guid>
+      <guid>https://chicheng.run/posts/fujian-women-immigration-review/</guid>
       <description>我一直不停地问这个故事值不值得写，其实是在问，我自己的故事值得写吗？我还可以用自己真正的声音说话和写作吗？我还有资格追求被听到、被看到、被理</description>
     </item>
   </channel>
