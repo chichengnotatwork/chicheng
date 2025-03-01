@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Grad School on 非池中物</title>
-    <link>https://chicheng.run/tags/grad-school/</link>
-    <description>Recent content in Grad School on 非池中物</description>
+    <title>女性主义 on 非池中物</title>
+    <link>https://chicheng.run/tags/%E5%A5%B3%E6%80%A7%E4%B8%BB%E4%B9%89/</link>
+    <description>Recent content in 女性主义 on 非池中物</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <lastBuildDate>Fri, 28 Feb 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://chicheng.run/tags/grad-school/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://chicheng.run/tags/%E5%A5%B3%E6%80%A7%E4%B8%BB%E4%B9%89/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>bell hooks “Theory as Liberatory Practice”（作为解放实践的理论）</title>
       <link>https://chicheng.run/posts/bell-hooks-theory/</link>
@@ -28,6 +28,13 @@
       <pubDate>Sun, 29 Dec 2024 14:56:55 -0500</pubDate>
       <guid>https://chicheng.run/posts/this-is-meant-for-women-a/</guid>
       <description>重点不在于我得到了什么样的答案，这种事本来也没有答案；重点是我感到倾诉是安全的，观点是被理解的，情感是被看见的，甚至——活下去是有希望的。我</description>
+    </item>
+    <item>
+      <title>三个福建女子，“出来”之后</title>
+      <link>https://chicheng.run/posts/fujian-women-immigration-stories/</link>
+      <pubDate>Wed, 10 Apr 2024 14:56:55 -0500</pubDate>
+      <guid>https://chicheng.run/posts/fujian-women-immigration-stories/</guid>
+      <description>哪里好？ 国内好。 那为什么要出来？ 因为没有别的办法。 还会回去吗？ 不会。 这一切值得吗？ …… 陈记 多伦多的冬天漫长。4点半左右，太阳落山，天色逐渐暗</description>
     </item>
   </channel>
 </rss>
