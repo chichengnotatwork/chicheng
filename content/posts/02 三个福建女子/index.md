@@ -2,7 +2,7 @@
 title: '三个福建女子，“出来”之后'
 date: 2024-04-10T14:56:55-05:00
 draft: false
-tags: ["田野笔记", "打工", "移民", "女性", "多伦多", "已发表"]
+tags: ["田野笔记", "打工", "移民", "女性主义", "多伦多", "已发表"]
 slug: "fujian-women-immigration-stories" 
 ---
 
