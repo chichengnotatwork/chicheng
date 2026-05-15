@@ -731,6 +731,7 @@ function renderMessages() {
 function showTyping(show) {
   const t = document.getElementById('typing');
   const messages = document.getElementById('messages');
+  if (!t || !messages) return;
   if (show) {
     t.classList.add('show');
     messages.appendChild(t);
