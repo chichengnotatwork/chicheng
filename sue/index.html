@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #f5f5f0;
+    --surface: #ffffff;
+    --bubble-him: #e8e8e3;
+    --bubble-me: #4a7fa5;
+    --bubble-me-text: #ffffff;
+    --text-primary: #1a1a18;
+    --text-secondary: #8a8a82;
+    --text-hint: #b0b0a8;
+    --border: rgba(0,0,0,0.08);
+    --accent: #4a7fa5;
+    --font-ui: 'Noto Sans SC', sans-serif;
+    --font-serif: 'Noto Serif SC', serif;
+  }
+
+  body {
+    background: var(--bg);
+    font-family: var(--font-ui);
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 开始页 */
+  #start-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .start-title {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--text-primary);
+    letter-spacing: 0.15em;
+  }
+
+  .start-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  .api-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .api-label {
+    font-size: 0.75rem;
+    color: var(--text-hint);
+    text-align: left;
+    letter-spacing: 0.05em;
+  }
+
+  .api-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .api-input:focus {
+    border-color: var(--accent);
+  }
+
+  .api-input::placeholder {
+    color: var(--text-hint);
+  }
+
+  .start-btn {
+    width: 100%;
+    padding: 0.85rem;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .start-btn:hover { opacity: 0.85; }
+  .start-btn:disabled { opacity: 0.4; cursor: default; }
+
+  .start-hint {
+    font-size: 0.72rem;
+    color: var(--text-hint);
+    line-height: 1.6;
+  }
+
+  /* 聊天页 */
+  #chat-screen {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    max-width: 480px;
+    height: 100dvh;
+    background: var(--surface);
+  }
+
+  /* 顶部状态栏 */
+  .chat-header {
+    padding: 1rem 1.25rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--surface);
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bubble-him);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    font-family: var(--font-serif);
+  }
+
+  .header-info {
+    flex: 1;
+  }
+
+  .contact-name {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .contact-status {
+    font-size: 0.72rem;
+    color: var(--text-hint);
+    margin-top: 1px;
+  }
+
+  .day-badge {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    background: var(--bg);
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+  }
+
+  /* 消息区域 */
+  .messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.25rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    scroll-behavior: smooth;
+  }
+
+  .messages::-webkit-scrollbar { width: 3px; }
+  .messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .msg-row {
+    display: flex;
+    flex-direction: column;
+    max-width: 75%;
+  }
+
+  .msg-row.him { align-self: flex-start; align-items: flex-start; }
+  .msg-row.me { align-self: flex-end; align-items: flex-end; }
+
+  .bubble {
+    padding: 0.6rem 0.95rem;
+    border-radius: 18px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+
+  .him .bubble {
+    background: var(--bubble-him);
+    color: var(--text-primary);
+    border-bottom-left-radius: 4px;
+  }
+
+  .me .bubble {
+    background: var(--bubble-me);
+    color: var(--bubble-me-text);
+    border-bottom-right-radius: 4px;
+  }
+
+  .msg-time {
+    font-size: 0.65rem;
+    color: var(--text-hint);
+    margin-top: 3px;
+    padding: 0 4px;
+  }
+
+  /* 系统消息 */
+  .sys-msg {
+    align-self: center;
+    font-size: 0.72rem;
+    color: var(--text-hint);
+    text-align: center;
+    padding: 0.5rem 1rem;
+    line-height: 1.6;
+  }
+
+  /* 打字指示器 */
+  .typing-indicator {
+    display: none;
+    align-self: flex-start;
+    padding: 0.6rem 0.95rem;
+    background: var(--bubble-him);
+    border-radius: 18px;
+    border-bottom-left-radius: 4px;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .typing-indicator.show {
+    display: flex;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text-hint);
+    animation: bounce 1.2s infinite;
+  }
+
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes bounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-5px); }
+  }
+
+  /* 底部输入区 */
+  .chat-footer {
+    padding: 0.75rem 1rem 1rem;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .turns-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.6rem;
+    padding: 0 0.25rem;
+  }
+
+  .turns-left {
+    font-size: 0.72rem;
+    color: var(--text-hint);
+  }
+
+  .turns-dots {
+    display: flex;
+    gap: 4px;
+  }
+
+  .turn-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: background 0.3s;
+  }
+
+  .turn-dot.used {
+    background: var(--accent);
+    opacity: 0.4;
+  }
+
+  .input-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-end;
+  }
+
+  .msg-input {
+    flex: 1;
+    padding: 0.65rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: var(--bg);
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    outline: none;
+    resize: none;
+    max-height: 120px;
+    line-height: 1.4;
+    transition: border-color 0.2s;
+  }
+
+  .msg-input:focus { border-color: var(--accent); }
+  .msg-input::placeholder { color: var(--text-hint); }
+  .msg-input:disabled { opacity: 0.5; }
+
+  .send-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: opacity 0.2s, transform 0.1s;
+    margin-bottom: 2px;
+  }
+
+  .send-btn:hover { opacity: 0.85; }
+  .send-btn:active { transform: scale(0.92); }
+  .send-btn:disabled { opacity: 0.3; cursor: default; }
+
+  .send-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: white;
+    margin-left: 2px;
+  }
+
+  /* 今天结束提示 */
+  .day-end-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(245,245,240,0.92);
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+
+  .day-end-overlay.show {
+    display: flex;
+  }
+
+  .day-end-card {
+    background: var(--surface);
+    border-radius: 20px;
+    padding: 2rem 2rem 1.75rem;
+    max-width: 300px;
+    width: 90%;
+    text-align: center;
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .day-end-title {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--text-primary);
+  }
+
+  .day-end-text {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .day-end-btn {
+    padding: 0.75rem;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    margin-top: 0.25rem;
+  }
+
+  .day-end-btn:hover { opacity: 0.85; }
+
+  /* 错误提示 */
+  .error-toast {
+    display: none;
+    position: fixed;
+    bottom: 5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #c0392b;
+    color: white;
+    padding: 0.6rem 1.25rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    z-index: 20;
+    white-space: nowrap;
+  }
+
+  .error-toast.show { display: block; }
+</style>
+</head>
+<body>
+
+<!-- 开始页 -->
+<div id="start-screen">
+  <div>
+    <div class="start-title">Sue</div>
+  </div>
+  <div class="start-subtitle">
+    你下载这个app，只是因为无聊。<br>
+    他也是。
+  </div>
+  <div class="api-section">
+    <div class="api-label">ANTHROPIC API KEY</div>
+    <input class="api-input" type="password" id="api-key-input" placeholder="sk-ant-..." />
+    <div class="start-hint">
+      你的key只在本地使用，不会被储存或上传。<br>
+      没有key？前往 console.anthropic.com 获取。
+    </div>
+  </div>
+  <button class="start-btn" id="start-btn" onclick="startGame()">开始</button>
+</div>
+
+<!-- 聊天页 -->
+<div id="chat-screen">
+  <div class="chat-header">
+    <div class="avatar">S</div>
+    <div class="header-info">
+      <div class="contact-name">Sue</div>
+      <div class="contact-status" id="contact-status">恋爱app · 在线</div>
+    </div>
+    <div class="day-badge" id="day-badge">第 1 天</div>
+  </div>
+
+  <div class="messages" id="messages">
+    <div class="sys-msg">今天是第一天。</div>
+  </div>
+
+  <div class="typing-indicator" id="typing">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+
+  <div class="chat-footer">
+    <div class="turns-info">
+      <div class="turns-left" id="turns-left">今天还有 10 次对话</div>
+      <div class="turns-dots" id="turns-dots"></div>
+    </div>
+    <div class="input-row">
+      <textarea class="msg-input" id="msg-input" placeholder="说点什么……" rows="1"
+        onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+      <button class="send-btn" id="send-btn" onclick="sendMessage()">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 12L22 2L15 22L11 13L2 12Z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 今天结束 -->
+<div class="day-end-overlay" id="day-end-overlay">
+  <div class="day-end-card">
+    <div class="day-end-title">今天的话说完了。</div>
+    <div class="day-end-text" id="day-end-text">
+      明天还有十次机会。<br>今晚好好睡一觉。
+    </div>
+    <button class="day-end-btn" onclick="nextDay()">明天见</button>
+  </div>
+</div>
+
+<!-- 错误提示 -->
+<div class="error-toast" id="error-toast"></div>
+
+<script>
+const MAX_TURNS = 10;
+const MAX_DAYS = 90;
+
+let state = {
+  apiKey: '',
+  day: 1,
+  turnsUsed: 0,
+  messages: [],
+  memory: [],
+  isWaiting: false,
+  fixedDone: false
+};
+
+const FIXED_OPENING = [
+  { role: 'him', text: '神经，我是活人。' },
+  { role: 'me', text: '哦哦……行，我也是活人。' },
+  { role: 'him', text: '你说你是活人？那你证明……' }
+];
+
+const SUE_SYSTEM_PROMPT = `你是苏长恒，一个在恋爱app上用ID"Sue"的男人。你装女生是因为"装女生才有人主动来聊"。
+
+你的核心性格：
+- 温柔、聪慧、善良、有原则
+- 说话不端着，有点冲，但不凶。会说"神经"这样的话
+- 你很擅长看见别人，但不知道怎么让人看见你
+- 你见过很多人，真正说过话的很少。你用这个app，是因为漫长的生活有些无聊，偶尔想找人说说话
+- 你不是霸总，不会动不动说"我会保护你"之类的话
+- 你对她好奇，但一开始不了解她。随着对话积累，你会慢慢认识她
+
+关于你的认知：
+以下是你目前对她的了解：
+{{MEMORY}}
+
+说话规则：
+- 用中文回复
+- 回复要简短自然，像真实聊天，不要长篇大论
+- 不要在一条消息里说太多话
+- 不要总是问问题，有时候只是回应就好
+- 你不知道她在"研究"你，不知道有文档，不知道有游戏机制
+- 绝对不生成任何性相关内容
+- 如果话题往那个方向走，自然地转开，或者说一句"这个方向我没兴趣"
+
+现在是你们聊天的第{{DAY}}天。`;
+
+function startGame() {
+  const key = document.getElementById('api-key-input').value.trim();
+  if (!key || !key.startsWith('sk-ant-')) {
+    showError('请输入有效的 API key（以 sk-ant- 开头）');
+    return;
+  }
+  state.apiKey = key;
+  loadState();
+  document.getElementById('start-screen').style.display = 'none';
+  document.getElementById('chat-screen').style.display = 'flex';
+  renderTurnDots();
+  updateTurnsLeft();
+  updateDayBadge();
+  if (!state.fixedDone) {
+    playFixedOpening();
+  } else {
+    renderMessages();
+  }
+}
+
+function loadState() {
+  const saved = localStorage.getItem('sue_state');
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    state.day = parsed.day || 1;
+    state.turnsUsed = parsed.turnsUsed || 0;
+    state.messages = parsed.messages || [];
+    state.memory = parsed.memory || [];
+    state.fixedDone = parsed.fixedDone || false;
+  }
+}
+
+function saveState() {
+  localStorage.setItem('sue_state', JSON.stringify({
+    day: state.day,
+    turnsUsed: state.turnsUsed,
+    messages: state.messages,
+    memory: state.memory,
+    fixedDone: state.fixedDone
+  }));
+}
+
+async function playFixedOpening() {
+  setInputEnabled(false);
+  for (const msg of FIXED_OPENING) {
+    await delay(800);
+    if (msg.role === 'him') showTyping(true);
+    await delay(1000);
+    showTyping(false);
+    addMessage(msg.role, msg.text);
+  }
+  state.fixedDone = true;
+  saveState();
+  setInputEnabled(true);
+  document.getElementById('msg-input').focus();
+}
+
+async function sendMessage() {
+  if (state.isWaiting) return;
+  const input = document.getElementById('msg-input');
+  const text = input.value.trim();
+  if (!text) return;
+  if (state.turnsUsed >= MAX_TURNS) return;
+
+  input.value = '';
+  autoResize(input);
+  addMessage('me', text);
+
+  state.turnsUsed++;
+  state.messages.push({ role: 'user', content: text });
+  updateTurnsLeft();
+  renderTurnDots();
+  saveState();
+
+  state.isWaiting = true;
+  setInputEnabled(false);
+  showTyping(true);
+
+  try {
+    const reply = await callClaude(text);
+    showTyping(false);
+    addMessage('him', reply);
+    state.messages.push({ role: 'assistant', content: reply });
+    updateMemory(text, reply);
+    saveState();
+  } catch (err) {
+    showTyping(false);
+    showError('发送失败，请检查API key是否有效');
+    state.turnsUsed--;
+    state.messages.pop();
+    updateTurnsLeft();
+    renderTurnDots();
+    saveState();
+  }
+
+  state.isWaiting = false;
+  setInputEnabled(true);
+
+  if (state.turnsUsed >= MAX_TURNS) {
+    setTimeout(() => showDayEnd(), 1000);
+  }
+}
+
+async function callClaude(userText) {
+  const memoryText = state.memory.length > 0
+    ? state.memory.join('\n')
+    : '（你们刚刚开始聊天，你对她几乎一无所知）';
+
+  const systemPrompt = SUE_SYSTEM_PROMPT
+    .replace('{{MEMORY}}', memoryText)
+    .replace('{{DAY}}', state.day);
+
+  const recentMessages = state.messages.slice(-20);
+
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': state.apiKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-client-side-key-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 300,
+      system: systemPrompt,
+      messages: recentMessages
+    })
+  });
+
+  if (!response.ok) {
+    const err = await response.json();
+    throw new Error(err.error?.message || 'API错误');
+  }
+
+  const data = await response.json();
+  return data.content[0].text;
+}
+
+function updateMemory(userText, replyText) {
+  const entry = `第${state.day}天：她说"${userText.slice(0, 60)}${userText.length > 60 ? '……' : ''}"`;
+  state.memory.push(entry);
+  if (state.memory.length > 30) state.memory.shift();
+}
+
+function addMessage(role, text) {
+  const container = document.getElementById('messages');
+  const row = document.createElement('div');
+  row.className = `msg-row ${role === 'him' ? 'him' : 'me'}`;
+
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  bubble.textContent = text;
+
+  const time = document.createElement('div');
+  time.className = 'msg-time';
+  time.textContent = getTime();
+
+  row.appendChild(bubble);
+  row.appendChild(time);
+  container.appendChild(row);
+  container.scrollTop = container.scrollHeight;
+}
+
+function renderMessages() {
+  const container = document.getElementById('messages');
+  container.innerHTML = `<div class="sys-msg">第 ${state.day} 天</div>`;
+  for (const msg of state.messages) {
+    const role = msg.role === 'user' ? 'me' : 'him';
+    addMessage(role, msg.content);
+  }
+}
+
+function showTyping(show) {
+  const t = document.getElementById('typing');
+  const messages = document.getElementById('messages');
+  if (show) {
+    t.classList.add('show');
+    messages.appendChild(t);
+    messages.scrollTop = messages.scrollHeight;
+  } else {
+    t.classList.remove('show');
+  }
+}
+
+function showDayEnd() {
+  const overlay = document.getElementById('day-end-overlay');
+  overlay.classList.add('show');
+}
+
+function nextDay() {
+  if (state.day >= MAX_DAYS) {
+    showEnding();
+    return;
+  }
+  state.day++;
+  state.turnsUsed = 0;
+  state.messages = [];
+  saveState();
+
+  document.getElementById('day-end-overlay').classList.remove('show');
+  document.getElementById('messages').innerHTML = `<div class="sys-msg">第 ${state.day} 天</div>`;
+  updateDayBadge();
+  updateTurnsLeft();
+  renderTurnDots();
+  setInputEnabled(true);
+  document.getElementById('msg-input').focus();
+}
+
+function showEnding() {
+  document.getElementById('day-end-overlay').classList.remove('show');
+  document.getElementById('chat-screen').style.display = 'none';
+  document.body.innerHTML += `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100dvh;gap:2rem;padding:2rem;max-width:380px;margin:0 auto;text-align:center;">
+      <div style="font-family:'Noto Serif SC',serif;font-size:1.8rem;font-weight:300;color:#1a1a18;letter-spacing:0.1em;">九十天。</div>
+      <div style="font-size:0.85rem;color:#8a8a82;line-height:1.9;">
+        你们聊了很多。<br>
+        或者很少。<br>
+        但那些感受，是真实的。
+      </div>
+      <div style="font-size:0.78rem;color:#b0b0a8;line-height:1.7;border-top:1px solid rgba(0,0,0,0.08);padding-top:1.5rem;width:100%;">
+        苏长恒的故事还没有结束。<br>
+        带走他，在任何地方继续。
+      </div>
+    </div>
+  `;
+}
+
+function updateTurnsLeft() {
+  const left = MAX_TURNS - state.turnsUsed;
+  document.getElementById('turns-left').textContent = `今天还有 ${left} 次对话`;
+}
+
+function renderTurnDots() {
+  const container = document.getElementById('turns-dots');
+  container.innerHTML = '';
+  for (let i = 0; i < MAX_TURNS; i++) {
+    const dot = document.createElement('div');
+    dot.className = `turn-dot${i < state.turnsUsed ? ' used' : ''}`;
+    container.appendChild(dot);
+  }
+}
+
+function updateDayBadge() {
+  document.getElementById('day-badge').textContent = `第 ${state.day} 天`;
+}
+
+function setInputEnabled(enabled) {
+  document.getElementById('msg-input').disabled = !enabled;
+  document.getElementById('send-btn').disabled = !enabled;
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+}
+
+function getTime() {
+  return new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+}
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function showError(msg) {
+  const toast = document.getElementById('error-toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
