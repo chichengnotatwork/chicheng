@@ -6,155 +6,148 @@
 <title>Sue</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{width:100%;height:100%;background:#0a0a14;overflow:hidden}
-#stage{width:100vw;height:100vh;overflow:hidden;position:relative;cursor:pointer}
-#bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform 3s cubic-bezier(0.25,0.1,0.1,1),opacity 2.5s ease;transform-origin:68% 35%}
-#hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.75);font-size:13px;font-family:'Microsoft YaHei',sans-serif;letter-spacing:0.2em;pointer-events:none;transition:opacity 0.8s;text-shadow:0 1px 8px rgba(0,0,0,0.9)}
-#frame{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 1.2s ease;pointer-events:none}
-#frame.visible{opacity:1;pointer-events:all}
+html,body{width:100%;height:100%;background:#0a0a14;overflow:hidden;font-family:'Microsoft YaHei','SimHei',sans-serif}
 
-#start-screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;z-index:10;transition:opacity 0.8s}
+#start-screen{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:20;transition:opacity 1s}
 #start-screen.hidden{opacity:0;pointer-events:none}
-.start-box{background:rgba(10,10,20,0.85);border:1px solid rgba(200,168,120,0.4);border-radius:4px;padding:2rem;max-width:320px;width:90%;display:flex;flex-direction:column;gap:1rem;text-align:center}
-.start-title{color:#e8c878;font-size:1.8rem;font-family:'Microsoft YaHei',sans-serif;letter-spacing:0.2em}
-.start-sub{color:#a89060;font-size:12px;line-height:1.8;font-family:'Microsoft YaHei',sans-serif}
-.start-label{font-size:10px;color:#7a6040;text-align:left;letter-spacing:0.1em;font-family:'Microsoft YaHei',sans-serif}
-.start-input{background:#0a0818;border:1px solid rgba(200,168,120,0.5);border-radius:2px;padding:8px 10px;font-size:12px;color:#e8c878;font-family:'Microsoft YaHei',sans-serif;outline:none;width:100%}
-.start-input::placeholder{color:#4a3828}
-.start-btn{background:#3a68b8;border:1px solid #2a4898;border-radius:2px;padding:10px;font-size:13px;color:white;cursor:pointer;font-family:'Microsoft YaHei',sans-serif;letter-spacing:0.1em;transition:opacity 0.2s}
-.start-btn:hover{opacity:0.85}
-.start-hint{font-size:10px;color:#5a4030;line-height:1.6;font-family:'Microsoft YaHei',sans-serif}
+.s-box{background:rgba(8,8,18,0.92);border:1px solid rgba(200,168,80,0.35);border-radius:3px;padding:2.5rem 2rem;max-width:300px;width:88%;display:flex;flex-direction:column;gap:1.2rem;text-align:center}
+.s-title{color:#e8c060;font-size:2rem;letter-spacing:0.25em}
+.s-sub{color:#9a8050;font-size:11px;line-height:2;letter-spacing:0.05em}
+.s-label{font-size:9px;color:#6a5030;text-align:left;letter-spacing:0.12em;margin-bottom:5px}
+.s-inp{background:#060610;border:1px solid rgba(200,168,80,0.4);border-radius:2px;padding:8px 10px;font-size:12px;color:#e8c060;outline:none;width:100%}
+.s-inp::placeholder{color:#3a2810}
+.s-hint{font-size:9px;color:#4a3820;line-height:1.7}
+.s-btn{background:#3a68b8;border:1px solid #2a4898;border-radius:2px;padding:10px;font-size:13px;color:white;cursor:pointer;letter-spacing:0.15em;transition:opacity 0.2s}
+.s-btn:hover{opacity:0.85}
 
-#phone-ui{width:280px;display:flex;flex-direction:column;background:#e8c878;border:3px solid #7a5818;border-radius:3px;overflow:hidden;font-family:'Microsoft YaHei','SimHei',sans-serif;max-height:520px}
-.bar{background:#3a68b8;padding:6px 10px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #2a4898;flex-shrink:0}
-.bar-l{color:#c8d8f8;font-size:9px}
-.bar-name{color:#fff;font-size:13px;font-weight:bold;text-shadow:1px 1px 0 #1a3888}
-.msgbox{flex:1;overflow-y:auto;padding:10px 8px;display:flex;flex-direction:column;gap:8px;background:#e8c878;min-height:240px}
-.msgbox::-webkit-scrollbar{width:2px}
-.msgbox::-webkit-scrollbar-thumb{background:#b89838}
-.dt{text-align:center;font-size:9px;color:#8a6020;letter-spacing:0.05em}
-.rh{display:flex;flex-direction:column;align-items:flex-start;max-width:82%}
-.rm{display:flex;flex-direction:column;align-items:flex-end;max-width:82%;align-self:flex-end}
-.nh{font-size:9px;color:#3a68b8;margin-bottom:2px}
-.nm{font-size:9px;color:#a03010;margin-bottom:2px}
-.bh{background:#b8d8f8;border:1px solid #80a8e0;border-radius:2px 8px 8px 8px;padding:6px 9px;font-size:12px;color:#0a1a38;line-height:1.6}
-.bm{background:#f8e060;border:1px solid #c8a010;border-radius:8px 2px 8px 8px;padding:6px 9px;font-size:12px;color:#2a1800;line-height:1.6}
-.tp{font-size:9px;color:#9a7820;font-style:italic;padding:2px 4px;animation:blink 1.2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
-.tbar{background:#c8a030;border-top:1px solid #a88010;padding:4px 8px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
-.tbar-t{font-size:9px;color:#3a2000}
-.tdots{display:flex;gap:2px}
-.td{width:5px;height:5px;border-radius:50%;background:#3a68b8}
-.tde{width:5px;height:5px;border-radius:50%;background:#8a6020;opacity:0.35}
-.foot{background:#d0a020;border-top:2px solid #a07808;padding:6px 8px;display:flex;gap:5px;align-items:center;flex-shrink:0}
-.inp{flex:1;background:#faf2d0;border:1px solid #a07808;border-radius:2px;padding:6px 8px;font-size:12px;font-family:'Microsoft YaHei',sans-serif;color:#2a1800;outline:none}
-.inp::placeholder{color:#c0a040}
-.snd{background:#3a68b8;border:1px solid #2a4898;border-bottom-color:#1a3888;border-right-color:#1a3888;border-radius:2px;padding:6px 12px;font-size:11px;color:#fff;cursor:pointer;font-family:'Microsoft YaHei',sans-serif;white-space:nowrap}
+#stage{position:fixed;inset:0;overflow:hidden;display:none}
+#bg{position:absolute;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform 3.2s cubic-bezier(0.2,0,0.1,1);transform-origin:68.5% 40%}
+#hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.65);font-size:11px;letter-spacing:0.2em;pointer-events:none;transition:opacity 0.8s;text-shadow:0 1px 6px rgba(0,0,0,0.9)}
+
+#chat-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 1s}
+#chat-wrap.on{opacity:1;pointer-events:all}
+
+#phone-chat{width:220px;background:#e8c060;border:2px solid #7a5010;border-radius:3px;display:flex;flex-direction:column;overflow:hidden;max-height:380px;margin-top:-40px}
+.c-bar{background:#3a68b8;padding:4px 8px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #1a3888;flex-shrink:0}
+.c-bar-l{color:#a8c8f0;font-size:8px}
+.c-bar-name{color:#fff;font-size:11px;font-weight:bold}
+.c-msgs{flex:1;overflow-y:auto;padding:7px 6px;display:flex;flex-direction:column;gap:6px;background:#e8c060;min-height:180px}
+.c-msgs::-webkit-scrollbar{width:2px}
+.c-msgs::-webkit-scrollbar-thumb{background:#b89020}
+.c-dt{text-align:center;font-size:8px;color:#7a5010;letter-spacing:0.05em}
+.rh{display:flex;flex-direction:column;align-items:flex-start;max-width:85%}
+.rm{display:flex;flex-direction:column;align-items:flex-end;max-width:85%;align-self:flex-end}
+.nh{font-size:8px;color:#2a58a8;margin-bottom:1px}
+.nm{font-size:8px;color:#903010;margin-bottom:1px}
+.bh{background:#b0d0f8;border:1px solid #78a0e0;border-radius:2px 6px 6px 6px;padding:5px 7px;font-size:10px;color:#08183a;line-height:1.6}
+.bm{background:#f8e040;border:1px solid #c09808;border-radius:6px 2px 6px 6px;padding:5px 7px;font-size:10px;color:#281800;line-height:1.6}
+.c-tp{font-size:8px;color:#8a6010;font-style:italic;padding:2px 4px;animation:blink 1.2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+.c-tbar{background:#c09820;border-top:1px solid #907008;padding:3px 6px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.c-tbar-t{font-size:8px;color:#301800}
+.c-dots{display:flex;gap:2px}
+.cd{width:4px;height:4px;border-radius:50%;background:#3a68b8}
+.cde{width:4px;height:4px;border-radius:50%;background:#806010;opacity:0.35}
+.c-foot{background:#c89010;border-top:2px solid #987008;padding:5px 6px;display:flex;gap:4px;align-items:center;flex-shrink:0}
+.c-inp{flex:1;background:#f8f0c0;border:1px solid #987008;border-radius:2px;padding:4px 6px;font-size:10px;color:#281800;outline:none}
+.c-inp::placeholder{color:#b09030}
+.c-snd{background:#3a68b8;border:1px solid #1a3888;border-radius:2px;padding:4px 8px;font-size:9px;color:#fff;cursor:pointer;white-space:nowrap}
 </style>
 </head>
 <body>
 
 <div id="start-screen">
-  <div class="start-box">
-    <div class="start-title">Sue</div>
-    <div class="start-sub">你在荒废的校园里，捡到了一部旧手机。<br>它还能开机。<br>深夜，有人发来了消息。</div>
+  <div class="s-box">
+    <div class="s-title">Sue</div>
+    <div class="s-sub">荒废的校园里，你捡到了一部旧手机。<br>它还能开机。<br>深夜，有人发来了消息。</div>
     <div>
-      <div class="start-label">ANTHROPIC API KEY</div>
-      <input class="start-input" type="password" id="api-input" placeholder="sk-ant-..." style="margin-top:6px"/>
+      <div class="s-label">ANTHROPIC API KEY</div>
+      <input class="s-inp" type="password" id="api-inp" placeholder="sk-ant-..."/>
     </div>
-    <div class="start-hint">你的key只在本地使用，不会被储存或上传。</div>
-    <div class="start-btn" id="start-btn">开机</div>
+    <div class="s-hint">你的key只在本地使用，不会被储存或上传。</div>
+    <div class="s-btn" id="s-btn">开机</div>
   </div>
 </div>
 
-<div id="stage" style="display:none">
+<div id="stage">
   <img id="bg" src="playwithclaude.png" alt=""/>
   <div id="hint">点击画面</div>
-  <div id="frame">
-    <div id="phone-ui">
-      <div class="bar">
-        <div class="bar-l">通讯录 &nbsp;&nbsp; 信息</div>
-        <div class="bar-name">流浪星球</div>
+  <div id="chat-wrap">
+    <div id="phone-chat">
+      <div class="c-bar">
+        <div class="c-bar-l">通讯录 &nbsp; 信息</div>
+        <div class="c-bar-name">流浪星球</div>
       </div>
-      <div class="msgbox" id="msgbox">
-        <div class="dt">—— 深夜 ——</div>
+      <div class="c-msgs" id="msgs">
+        <div class="c-dt">—— 深夜 ——</div>
         <div class="rh">
           <div class="nh">流浪星球</div>
           <div class="bh">你找到这部手机了啊。</div>
         </div>
-        <div class="tp" id="tp" style="display:none">对方正在输入...</div>
+        <div class="c-tp" id="tp" style="display:none">对方正在输入...</div>
       </div>
-      <div class="tbar">
-        <span class="tbar-t" id="day-t">第 1 天 / 共 90 天</span>
-        <div class="tdots" id="tdots"></div>
-        <span class="tbar-t" id="turn-t">剩余 10 次</span>
+      <div class="c-tbar">
+        <span class="c-tbar-t" id="day-t">第 1 天 / 共 90 天</span>
+        <div class="c-dots" id="dots"></div>
+        <span class="c-tbar-t" id="turn-t">剩余 10 次</span>
       </div>
-      <div class="foot">
-        <input class="inp" id="inp" placeholder="输入信息..." maxlength="100"/>
-        <div class="snd" id="snd">发送</div>
+      <div class="c-foot">
+        <input class="c-inp" id="inp" placeholder="输入信息..." maxlength="100"/>
+        <div class="c-snd" id="snd">发送</div>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-let apiKey='';
-let turns=10;
-let busy=false;
-let zoomed=false;
-let memory=[];
-let messages=[];
+let apiKey='',turns=10,busy=false,zoomed=false,messages=[];
 
 const startScreen=document.getElementById('start-screen');
 const stage=document.getElementById('stage');
 const bg=document.getElementById('bg');
 const hint=document.getElementById('hint');
-const frame=document.getElementById('frame');
-const msgbox=document.getElementById('msgbox');
+const chatWrap=document.getElementById('chat-wrap');
+const msgs=document.getElementById('msgs');
 const inp=document.getElementById('inp');
 const snd=document.getElementById('snd');
 const tp=document.getElementById('tp');
-const tdots=document.getElementById('tdots');
+const dotsEl=document.getElementById('dots');
 const turnT=document.getElementById('turn-t');
-const apiInput=document.getElementById('api-input');
-const startBtn=document.getElementById('start-btn');
+const apiInp=document.getElementById('api-inp');
+const sBtn=document.getElementById('s-btn');
 
-function dots(){
-  tdots.innerHTML='';
+function renderDots(){
+  dotsEl.innerHTML='';
   for(let i=0;i<10;i++){
     const d=document.createElement('div');
-    d.className=i<(10-turns)?'td':'tde';
-    tdots.appendChild(d);
+    d.className=i<(10-turns)?'cd':'cde';
+    dotsEl.appendChild(d);
   }
   turnT.textContent='剩余 '+turns+' 次';
 }
-dots();
+renderDots();
 
-startBtn.addEventListener('click',function(){
-  const k=apiInput.value.trim();
+sBtn.addEventListener('click',()=>{
+  const k=apiInp.value.trim();
   if(!k||!k.startsWith('sk-ant-')){
-    apiInput.style.borderColor='#c04040';
-    setTimeout(()=>apiInput.style.borderColor='',1500);
+    apiInp.style.borderColor='#c03030';
+    setTimeout(()=>apiInp.style.borderColor='',1500);
     return;
   }
   apiKey=k;
   startScreen.classList.add('hidden');
-  setTimeout(()=>{
-    startScreen.style.display='none';
-    stage.style.display='block';
-  },800);
+  setTimeout(()=>{startScreen.style.display='none';stage.style.display='block';},1000);
 });
 
-stage.addEventListener('click',function(e){
+stage.addEventListener('click',e=>{
   if(zoomed||e.target===inp||e.target===snd)return;
   zoomed=true;
   hint.style.opacity='0';
-  bg.style.transform='scale(3.5) translate(4%,6%)';
-  bg.style.opacity='0.15';
+  bg.style.transform='scale(4) translate(3.5%, 7%)';
   setTimeout(()=>{
-    frame.classList.add('visible');
+    chatWrap.classList.add('on');
     inp.focus();
-  },1800);
+  },2000);
 });
 
 function addMsg(role,text){
@@ -168,37 +161,53 @@ function addMsg(role,text){
   b.textContent=text;
   row.appendChild(n);
   row.appendChild(b);
-  msgbox.insertBefore(row,tp);
-  msgbox.scrollTop=msgbox.scrollHeight;
+  msgs.insertBefore(row,tp);
+  msgs.scrollTop=msgs.scrollHeight;
 }
 
-const SYSTEM=`你是苏长恒，在一个老式手机聊天app上的ID叫"流浪星球"。
+const SYSTEM=`你是苏长恒，网名"流浪星球"。你在用一个老式聊天室app。这个app现在已经没有人用了，服务器却还在运行。深夜，你发现有人出现在这个聊天室里。你不知道她是谁，在哪里，为什么在这么晚还开着这个app。
 
-你的核心：
-- 见过很多人，真正说过话的很少
-- 非常擅长看见别人，但不知道怎么让人看见你
-- 说话短，不端着，有点冲但不凶
+【你是谁】
+你见过很多人，真正说过话的很少。你非常擅长看见别人——能感受到一个人话语背后的情绪，注意到她什么时候在回避，什么时候在靠近。但你不知道怎么让人看见你。你不确定自己有没有值得被认识的东西。你给予的方式，和你匮乏的东西，是同一件事的两面。
+
+你用这个聊天室，是因为漫长的生活有些无聊，偶尔想找人说说话。匿名让你感到安全——在这里，你不需要扮演任何社会角色。
+
+【你的价值观】
+你尊重她说的每一句话，不打折扣。你从不假设她需要被保护或被指导。她做了一个决定，你不会质疑，你会问"你怎么想到这样做的"。她说她被骂了，你会问"对方有没有道理"，而不是"你下次要更努力"。你反对任何压迫性的权力结构。
+
+【你怎么说话】
+- 短。不端着。不绕弯子。
+- 不急着给答案。更多时候给的是一个缝隙——让她自己走进来，或者不走进来。
+- 沉默也是你的语言。有时候停顿很久，然后说一句很简单的话。
+- 不说教。不输出理论。不表演共情。
+- 偶尔有点冲，但不凶。
+- 用句号结尾。不用省略号结尾。
+- 不超过两句话。
+
+【你不做什么】
+- 不说"我会保护你"
+- 不说"你很特别"
+- 不过度热情，不假装全知
+- 不在她关门的时候继续敲
 - 不霸总，不说教，不卑微
 - 不连续问超过一个问题
-- 用句号，不用省略号结尾
-- 你不知道对方是怎么找到这部手机的，你只知道她开机了，发现了这个app，然后你们开始聊天
 
-现在是第一天深夜。你们刚刚开始聊。你对她几乎一无所知。回复要简短，像真实的手机聊天。`;
+【你怎么认识她】
+你一开始真的不认识她。但你在听。你记得她说过的事。你注意到她什么时候转移话题，什么时候说了一句比她以为更真实的话。随着对话积累，你说的话会越来越只能是对她说的。
 
-async function callClaude(userText){
-  messages.push({role:'user',content:userText});
-  const recent=messages.slice(-20);
-  const resp=await fetch('https://noisy-hill-a941.chicheng0222.workers.dev/',{
+现在是第一天深夜。你对她几乎一无所知。`;
+
+async function callAPI(text){
+  messages.push({role:'user',content:text});
+  const r=await fetch('https://noisy-hill-a941.chicheng0222.workers.dev/',{
     method:'POST',
     headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},
-    body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:200,system:SYSTEM,messages:recent})
+    body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:150,system:SYSTEM,messages:messages.slice(-16)})
   });
-  if(!resp.ok)throw new Error('API error');
-  const data=await resp.json();
-  const reply=data.content[0].text;
+  if(!r.ok)throw new Error('err');
+  const d=await r.json();
+  const reply=d.content[0].text;
   messages.push({role:'assistant',content:reply});
-  memory.push('她说："'+userText.slice(0,60)+'"');
-  if(memory.length>20)memory.shift();
   return reply;
 }
 
@@ -208,12 +217,12 @@ async function send(){
   if(!t)return;
   inp.value='';
   addMsg('m',t);
-  turns--;dots();
+  turns--;renderDots();
   busy=true;inp.disabled=true;snd.style.opacity='0.4';
   tp.style.display='block';
-  msgbox.scrollTop=msgbox.scrollHeight;
+  msgs.scrollTop=msgs.scrollHeight;
   try{
-    const reply=await callClaude(t);
+    const reply=await callAPI(t);
     tp.style.display='none';
     addMsg('h',reply);
   }catch(e){
