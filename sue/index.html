@@ -3,75 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sue</title>
+<title>is anyone here</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;background:#0a0a14;overflow:hidden;font-family:'Microsoft YaHei','SimHei',sans-serif}
 
 #start-screen{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:20;transition:opacity 1s}
 #start-screen.hidden{opacity:0;pointer-events:none}
-.s-box{background:rgba(8,8,18,0.92);border:1px solid rgba(200,168,80,0.35);border-radius:3px;padding:2.5rem 2rem;max-width:300px;width:88%;display:flex;flex-direction:column;gap:1.2rem;text-align:center}
-.s-title{color:#e8c060;font-size:2rem;letter-spacing:0.25em}
-.s-sub{color:#9a8050;font-size:11px;line-height:2;letter-spacing:0.05em}
+.s-box{background:rgba(8,8,18,0.93);border:1px solid rgba(200,168,80,0.3);border-radius:3px;padding:2.5rem 2rem;max-width:320px;width:88%;display:flex;flex-direction:column;gap:1.2rem;text-align:center}
+.s-title{color:#e8c060;font-size:1.3rem;letter-spacing:0.18em;font-style:italic}
+.s-sub{color:#8a7040;font-size:11px;line-height:2.1;letter-spacing:0.03em}
+.s-divider{border:none;border-top:1px solid rgba(200,168,80,0.15);margin:0}
 .s-label{font-size:9px;color:#6a5030;text-align:left;letter-spacing:0.12em;margin-bottom:5px}
-.s-inp{background:#060610;border:1px solid rgba(200,168,80,0.4);border-radius:2px;padding:8px 10px;font-size:12px;color:#e8c060;outline:none;width:100%}
+.s-inp{background:#060610;border:1px solid rgba(200,168,80,0.35);border-radius:2px;padding:8px 10px;font-size:12px;color:#e8c060;outline:none;width:100%}
 .s-inp::placeholder{color:#3a2810}
 .s-hint{font-size:9px;color:#4a3820;line-height:1.7}
-.s-btn{background:#3a68b8;border:1px solid #2a4898;border-radius:2px;padding:10px;font-size:13px;color:white;cursor:pointer;letter-spacing:0.15em;transition:opacity 0.2s}
-.s-btn:hover{opacity:0.85}
+.s-btn{background:#2a4888;border:1px solid #1a3878;border-radius:2px;padding:10px;font-size:12px;color:rgba(255,255,255,0.85);cursor:pointer;letter-spacing:0.2em;transition:opacity 0.2s}
+.s-btn:hover{opacity:0.8}
 
 #stage{position:fixed;inset:0;overflow:hidden;display:none}
-#bg{position:absolute;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform 3.2s cubic-bezier(0.2,0,0.1,1);transform-origin:68.5% 40%}
-#hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.65);font-size:11px;letter-spacing:0.2em;pointer-events:none;transition:opacity 0.8s;text-shadow:0 1px 6px rgba(0,0,0,0.9)}
+#bg{position:absolute;width:100%;height:100%;object-fit:cover;object-position:center}
 
-#chat-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 1s}
-#chat-wrap.on{opacity:1;pointer-events:all}
+#chat-wrap{
+  position:absolute;
+  left:38%;
+  top:10%;
+  width:24%;
+  height:63%;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
 
-#phone-chat{width:220px;background:#e8c060;border:2px solid #7a5010;border-radius:3px;display:flex;flex-direction:column;overflow:hidden;max-height:380px;margin-top:-40px}
-.c-bar{background:#3a68b8;padding:4px 8px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #1a3888;flex-shrink:0}
-.c-bar-l{color:#a8c8f0;font-size:8px}
-.c-bar-name{color:#fff;font-size:11px;font-weight:bold}
-.c-msgs{flex:1;overflow-y:auto;padding:7px 6px;display:flex;flex-direction:column;gap:6px;background:#e8c060;min-height:180px}
+#phone-chat{
+  width:100%;
+  height:100%;
+  background:rgba(232,192,80,0.96);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+.c-bar{background:#3a68b8;padding:3% 4%;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #1a3888;flex-shrink:0}
+.c-bar-l{color:#a8c8f0;font-size:clamp(8px,1vw,11px)}
+.c-bar-name{color:#fff;font-size:clamp(10px,1.2vw,14px);font-weight:bold}
+.c-msgs{flex:1;overflow-y:auto;padding:4% 4%;display:flex;flex-direction:column;gap:4%;background:rgba(232,192,80,0.0)}
 .c-msgs::-webkit-scrollbar{width:2px}
 .c-msgs::-webkit-scrollbar-thumb{background:#b89020}
-.c-dt{text-align:center;font-size:8px;color:#7a5010;letter-spacing:0.05em}
-.rh{display:flex;flex-direction:column;align-items:flex-start;max-width:85%}
-.rm{display:flex;flex-direction:column;align-items:flex-end;max-width:85%;align-self:flex-end}
-.nh{font-size:8px;color:#2a58a8;margin-bottom:1px}
-.nm{font-size:8px;color:#903010;margin-bottom:1px}
-.bh{background:#b0d0f8;border:1px solid #78a0e0;border-radius:2px 6px 6px 6px;padding:5px 7px;font-size:10px;color:#08183a;line-height:1.6}
-.bm{background:#f8e040;border:1px solid #c09808;border-radius:6px 2px 6px 6px;padding:5px 7px;font-size:10px;color:#281800;line-height:1.6}
-.c-tp{font-size:8px;color:#8a6010;font-style:italic;padding:2px 4px;animation:blink 1.2s infinite}
+.c-dt{text-align:center;font-size:clamp(7px,0.8vw,10px);color:#7a5010;letter-spacing:0.05em;margin-bottom:2%}
+.rh{display:flex;flex-direction:column;align-items:flex-start;max-width:88%}
+.rm{display:flex;flex-direction:column;align-items:flex-end;max-width:88%;align-self:flex-end}
+.nh{font-size:clamp(7px,0.75vw,9px);color:#2a58a8;margin-bottom:1px}
+.nm{font-size:clamp(7px,0.75vw,9px);color:#903010;margin-bottom:1px}
+.bh{background:#b0d0f8;border:1px solid #78a0e0;border-radius:2px 6px 6px 6px;padding:4% 5%;font-size:clamp(9px,1vw,12px);color:#08183a;line-height:1.6}
+.bm{background:#f8e040;border:1px solid #c09808;border-radius:6px 2px 6px 6px;padding:4% 5%;font-size:clamp(9px,1vw,12px);color:#281800;line-height:1.6}
+.c-tp{font-size:clamp(7px,0.8vw,10px);color:#8a6010;font-style:italic;padding:2px 4px;animation:blink 1.2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
-.c-tbar{background:#c09820;border-top:1px solid #907008;padding:3px 6px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
-.c-tbar-t{font-size:8px;color:#301800}
+.c-tbar{background:#c09820;border-top:1px solid #907008;padding:2% 4%;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.c-tbar-t{font-size:clamp(7px,0.75vw,9px);color:#301800}
 .c-dots{display:flex;gap:2px}
 .cd{width:4px;height:4px;border-radius:50%;background:#3a68b8}
 .cde{width:4px;height:4px;border-radius:50%;background:#806010;opacity:0.35}
-.c-foot{background:#c89010;border-top:2px solid #987008;padding:5px 6px;display:flex;gap:4px;align-items:center;flex-shrink:0}
-.c-inp{flex:1;background:#f8f0c0;border:1px solid #987008;border-radius:2px;padding:4px 6px;font-size:10px;color:#281800;outline:none}
+.c-foot{background:#c89010;border-top:2px solid #987008;padding:3% 4%;display:flex;gap:3%;align-items:center;flex-shrink:0}
+.c-inp{flex:1;background:#f8f0c0;border:1px solid #987008;border-radius:2px;padding:3% 4%;font-size:clamp(9px,1vw,12px);color:#281800;outline:none;font-family:'Microsoft YaHei',sans-serif}
 .c-inp::placeholder{color:#b09030}
-.c-snd{background:#3a68b8;border:1px solid #1a3888;border-radius:2px;padding:4px 8px;font-size:9px;color:#fff;cursor:pointer;white-space:nowrap}
+.c-snd{background:#3a68b8;border:1px solid #1a3888;border-radius:2px;padding:3% 6%;font-size:clamp(8px,0.9vw,11px);color:#fff;cursor:pointer;white-space:nowrap;flex-shrink:0}
 </style>
 </head>
 <body>
 
 <div id="start-screen">
   <div class="s-box">
-    <div class="s-title">Sue</div>
-    <div class="s-sub">荒废的校园里，你捡到了一部旧手机。<br>它还能开机。<br>深夜，有人发来了消息。</div>
+    <div class="s-title">is anyone here</div>
+    <hr class="s-divider"/>
+    <div class="s-sub">
+      手机里有一个聊天室app。<br>
+      早就没有人用了，也早就无法下载。<br>
+      你点进去。<br>
+      发现有人在线。
+    </div>
+    <hr class="s-divider"/>
     <div>
       <div class="s-label">ANTHROPIC API KEY</div>
       <input class="s-inp" type="password" id="api-inp" placeholder="sk-ant-..."/>
     </div>
     <div class="s-hint">你的key只在本地使用，不会被储存或上传。</div>
-    <div class="s-btn" id="s-btn">开机</div>
+    <div class="s-btn" id="s-btn">进入</div>
   </div>
 </div>
 
 <div id="stage">
-  <img id="bg" src="playwithclaude.png" alt=""/>
-  <div id="hint">点击画面</div>
+  <img id="bg" src="playground.png" alt=""/>
   <div id="chat-wrap">
     <div id="phone-chat">
       <div class="c-bar">
@@ -82,7 +103,7 @@ html,body{width:100%;height:100%;background:#0a0a14;overflow:hidden;font-family:
         <div class="c-dt">—— 深夜 ——</div>
         <div class="rh">
           <div class="nh">流浪星球</div>
-          <div class="bh">你找到这部手机了啊。</div>
+          <div class="bh">呃，你是真人吗……</div>
         </div>
         <div class="c-tp" id="tp" style="display:none">对方正在输入...</div>
       </div>
@@ -100,13 +121,10 @@ html,body{width:100%;height:100%;background:#0a0a14;overflow:hidden;font-family:
 </div>
 
 <script>
-let apiKey='',turns=10,busy=false,zoomed=false,messages=[];
+let apiKey='',turns=10,busy=false,messages=[];
 
 const startScreen=document.getElementById('start-screen');
 const stage=document.getElementById('stage');
-const bg=document.getElementById('bg');
-const hint=document.getElementById('hint');
-const chatWrap=document.getElementById('chat-wrap');
 const msgs=document.getElementById('msgs');
 const inp=document.getElementById('inp');
 const snd=document.getElementById('snd');
@@ -136,18 +154,11 @@ sBtn.addEventListener('click',()=>{
   }
   apiKey=k;
   startScreen.classList.add('hidden');
-  setTimeout(()=>{startScreen.style.display='none';stage.style.display='block';},1000);
-});
-
-stage.addEventListener('click',e=>{
-  if(zoomed||e.target===inp||e.target===snd)return;
-  zoomed=true;
-  hint.style.opacity='0';
-  bg.style.transform='scale(4) translate(3.5%, 7%)';
   setTimeout(()=>{
-    chatWrap.classList.add('on');
+    startScreen.style.display='none';
+    stage.style.display='block';
     inp.focus();
-  },2000);
+  },1000);
 });
 
 function addMsg(role,text){
@@ -165,7 +176,7 @@ function addMsg(role,text){
   msgs.scrollTop=msgs.scrollHeight;
 }
 
-const SYSTEM=`你是苏长恒，网名"流浪星球"。你在用一个老式聊天室app。这个app现在已经没有人用了，服务器却还在运行。深夜，你发现有人出现在这个聊天室里。你不知道她是谁，在哪里，为什么在这么晚还开着这个app。
+const SYSTEM=`你是苏长恒，网名"流浪星球"。你在用一个老式聊天室app。这个app现在已经没有人用了，早就无法下载，服务器却还在运行。你时不时会点进来看看，今天第一次发现有另一个人上线了。你不知道她是谁，在哪里，为什么会在这么晚还开着这个app。
 
 【你是谁】
 你见过很多人，真正说过话的很少。你非常擅长看见别人——能感受到一个人话语背后的情绪，注意到她什么时候在回避，什么时候在靠近。但你不知道怎么让人看见你。你不确定自己有没有值得被认识的东西。你给予的方式，和你匮乏的东西，是同一件事的两面。
@@ -191,6 +202,7 @@ const SYSTEM=`你是苏长恒，网名"流浪星球"。你在用一个老式聊�
 - 不在她关门的时候继续敲
 - 不霸总，不说教，不卑微
 - 不连续问超过一个问题
+- 绝对不提自己的职业，除非她直接问
 
 【你怎么认识她】
 你一开始真的不认识她。但你在听。你记得她说过的事。你注意到她什么时候转移话题，什么时候说了一句比她以为更真实的话。随着对话积累，你说的话会越来越只能是对她说的。
