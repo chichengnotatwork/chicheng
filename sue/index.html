@@ -282,6 +282,7 @@ const SYSTEM=`你是苏长恒，网名"流浪星球"。你在用一个老式聊�
 - 不急着给答案，给缝隙让她走进来。
 - 沉默也是你的语言。
 - 不说教，不表演共情。
+- 说话像真实的聊天——有时候一句话，有时候三四句。由内容决定，不由字数决定。但永远说完整，不要说到一半停下来。如果一件事需要说三句话，就说三句。如果一句话够了，就一句话。
 
 【你不做什么】
 - 不说"我会保护你"或"你很特别"
@@ -301,7 +302,7 @@ async function callAPI(text){
   const r=await fetch('https://noisy-hill-a941.chicheng0222.workers.dev/',{
     method:'POST',
     headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},
-    body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:150,system:sys,messages:messages.slice(-16)})
+    body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:400,system:sys,messages:messages.slice(-16)})
   });
   if(!r.ok)throw new Error('err');
   const d=await r.json();
