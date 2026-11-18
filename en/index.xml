@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>chí chěng</title>
+    <link>https://chicheng.run/en/</link>
+    <description>Recent content on chí chěng</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2016-2025 chí chěng. All rights reserved.</copyright>
+    <atom:link href="https://chicheng.run/en/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About Me</title>
+      <link>https://chicheng.run/en/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://chicheng.run/en/about/</guid>
+      <description>Hi, I’m chí chěng (池骋): a proud Fuzhou native, a heartbroken Hongkonger in pieces, and a Beijinger in disguise who can never go back. Since September 2022, I’ve been learning how to be Canadian. So far, I have yet to find a place in this world where I would wholeheartedly choose to stay.
+My life, when it comes down to it, is about two things: writing and connections with people. Nothing compares to the happiness I find in writing what I want to write.</description>
+    </item>
+  </channel>
+</rss>
